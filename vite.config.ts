@@ -4,37 +4,98 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "./",
   resolve: {
-    alias: {
-      "@sharing/organisms": path.resolve(
-        __dirname,
-        "/src/ui/sharing/organisms/index.ts"
-      ),
-      "@sharing/molecules": path.resolve(
-        __dirname,
-        "/src/ui/sharing/molecules/index.ts"
-      ),
-      "@sharing/atoms": path.resolve(
-        __dirname,
-        "/src/ui/sharing/atoms/index.ts"
-      ),
-      "@atoms": path.resolve(__dirname, "/src/ui/home/atoms/index.ts"),
-      "@molecules": path.resolve(__dirname, "/src/ui/home/molecules/index.ts"),
-      "@organisms": path.resolve(__dirname, "/src/ui/home/organisms/index.ts"),
-      "@images": path.resolve(__dirname, "/src/assets/images"),
-      "@icons": path.resolve(__dirname, "/src/assets/icons"),
-      "@mixins": path.resolve(__dirname, "/src/styles/mixins.ts"),
-      "@data": path.resolve(__dirname, "/src/logic/data"),
-      "@schemas": path.resolve(__dirname, "/src/logic/schemas"),
-      "@services": path.resolve(__dirname, "/src/logic/services"),
-      "@handlers": path.resolve(__dirname, "/src/logic/handlers"),
-      "@hooks": path.resolve(__dirname, "/src/logic/utils/hooks/index.ts"),
-      "@utils": path.resolve(__dirname, "/src/logic/utils"),
-      "@constants": path.resolve(__dirname, "/src/logic/utils/constants"),
-      "@functions": path.resolve(__dirname, "/src/logic/utils/functions"),
-      "@styles": path.resolve(__dirname, "src/styles"),
-      "@typing": path.resolve(__dirname, "src/typing"),
-    },
+    alias: [
+      {
+        find: "@services",
+        replacement: path.resolve(__dirname, "src/logic/services"),
+      },
+      {
+        find: "@sharing/organisms",
+        replacement: path.resolve(
+          __dirname,
+          "src/ui/sharing/organisms/index.ts"
+        ),
+      },
+      {
+        find: "@sharing/molecules",
+        replacement: path.resolve(
+          __dirname,
+          "src/ui/sharing/molecules/index.ts"
+        ),
+      },
+      {
+        find: "@sharing/atoms",
+        replacement: path.resolve(__dirname, "src/ui/sharing/atoms/index.ts"),
+      },
+      {
+        find: "@typing",
+        replacement: path.resolve(__dirname, "src/typing"),
+      },
+      {
+        find: "@atoms",
+        replacement: path.resolve(__dirname, "src/ui/home/atoms/index.ts"),
+      },
+      {
+        find: "@molecules",
+        replacement: path.resolve(__dirname, "src/ui/home/molecules/index.ts"),
+      },
+      {
+        find: "@organisms",
+        replacement: path.resolve(__dirname, "src/ui/home/organisms/index.ts"),
+      },
+      {
+        find: "@images",
+        replacement: path.resolve(__dirname, "src/assets/images"),
+      },
+      {
+        find: "@icons",
+        replacement: path.resolve(__dirname, "src/assets/icons"),
+      },
+      {
+        find: "@mixins",
+        replacement: path.resolve(__dirname, "src/styles/mixins.ts"),
+      },
+      {
+        find: "@data",
+        replacement: path.resolve(__dirname, "src/logic/data"),
+      },
+      {
+        find: "@schemas",
+        replacement: path.resolve(__dirname, "src/logic/schemas"),
+      },
+      {
+        find: "@services",
+        replacement: path.resolve(__dirname, "src/logic/services"),
+      },
+      {
+        find: "@handlers",
+        replacement: path.resolve(__dirname, "src/logic/handlers"),
+      },
+      {
+        find: "@hooks",
+        replacement: path.resolve(__dirname, "src/logic/utils/hooks/index.ts"),
+      },
+      {
+        find: "@utils",
+        replacement: path.resolve(__dirname, "src/logic/utils"),
+      },
+      {
+        find: "@constants",
+        replacement: path.resolve(__dirname, "src/logic/utils/constants"),
+      },
+      {
+        find: "@functions",
+        replacement: path.resolve(__dirname, "src/logic/utils/functions"),
+      },
+      {
+        find: "@styles",
+        replacement: path.resolve(__dirname, "src/styles"),
+      },
+      {
+        find: "@config",
+        replacement: path.resolve(__dirname, "src/logic/config.ts"),
+      },
+    ],
   },
 });
