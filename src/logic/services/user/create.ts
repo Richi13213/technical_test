@@ -2,19 +2,31 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 import type { CreateUserInterface, BackendResponse } from "@typing/user";
 import config from "@config";
 
-export const createUser = async (
+export const createUserService = async (
   user: CreateUserInterface
 ): Promise<boolean> => {
   try {
+    const { nombre, apellidoPaterno, apellidoMaterno, edad, email, fechaNac } =
+      user;
+    const createUserData = JSON.stringify({
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      edad,
+      email,
+      fechaNac,
+      datos: `{\"calle\": \"${user.calle}\",\"numero\": \"${user.numero}\",\"colonia\": \"${user.colonia}\",\"delegacion\": \"${user.delegacion}\",\"estado\": \"${user.estado}\",\"cp\": \"${user.cp}\",\"imagen\": \"${user.imagen}\"}`
+    });
     const response: AxiosResponse<BackendResponse> =
-      await axios.post<BackendResponse>(config.api_url, user, {
+      await axios.post<BackendResponse>(config.api_url, createUserData, {
         headers: config.http_headers,
       });
 
-    if (response.status === 200 && response.data.hasOwnProperty("msg")) {
+    if (response.status === 200 && response.data.hasOwnProperty("id")) {
       return true;
     } else {
-      throw new Error("Unexpected response from server: Missing 'msg' field");
+      console.log("Unexpected response from server");
+      return false;
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -24,17 +36,22 @@ export const createUser = async (
           axiosError.response.status === 400 ||
           axiosError.response.status === 405
         ) {
-          throw new Error("Invalid input");
+          console.log("Invalid input");
+          return false;
         } else {
-          throw new Error("Server error");
+          console.log("Server error");
+          return false;
         }
       } else if (axiosError.request) {
-        throw new Error("Request error");
+        console.log("Request error");
+        return false;
       } else {
-        throw new Error("Unknown error");
+        console.log("Unknown error");
+        return false;
       }
     } else {
-      throw new Error("Network error");
+      console.log("Network error");
+      return false;
     }
   }
 };

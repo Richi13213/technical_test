@@ -1,11 +1,11 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import type { UserInterface } from "@typing/user";
+import type { UserListInterface } from "@typing/user";
 import config from "@config";
 
-export const getAllUsers = async (): Promise<UserInterface[]> => {
+export const getAllUsers = async (): Promise<UserListInterface[] | boolean> => {
   try {
-    const response: AxiosResponse<UserInterface[]> = await axios.get<
-      UserInterface[]
+    const response: AxiosResponse<UserListInterface[]> = await axios.get<
+      UserListInterface[]
     >(config.api_url, {
       headers: config.http_headers,
     });
@@ -14,14 +14,18 @@ export const getAllUsers = async (): Promise<UserInterface[]> => {
     if (axios.isAxiosError(error)) {
       const axiosError: AxiosError = error;
       if (axiosError.response) {
-        throw new Error(`Server error: ${axiosError.response.status}`);
+        console.log(`Server error: ${axiosError.response.status}`);
+        return false;
       } else if (axiosError.request) {
-        throw new Error("Request error");
+        console.log("Request error");
+        return false;
       } else {
-        throw new Error("Unknown error");
+        console.log("Unknown error");
+        return false;
       }
     } else {
-      throw new Error("Network error");
+      console.log("Network error");
+      return false;
     }
   }
 };
