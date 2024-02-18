@@ -1,7 +1,8 @@
-function App() {
+import { Dashboard } from "@organisms";
+function App(): JSX.Element {
   return (
     <>
-      <div>Being proyect</div>
+      <Dashboard />
     </>
   );
 }
